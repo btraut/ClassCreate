@@ -2,12 +2,13 @@
 window.createClass = function(arg1, arg2) {
 	var subclass = function() {};
 	var newclass = function() {
-		if (typeof this.initialize === 'function') {
-			this.initialize.apply(this, arguments);
+		if (typeof this.init === 'function') {
+			this.init.apply(this, arguments);
 		}
 	};
 	
-	var parent, properties = {}, constructor;
+	var parent = null;
+	var properties = {};
 	
 	// Sort out the arguments.
 	if (typeof arg1 === 'object') {
@@ -35,7 +36,7 @@ window.createClass = function(arg1, arg2) {
 	}
 	
 	// Save a reference to the parent (super) class in the sub class.
-	if (!newclass.prototype.hasOwnProperty('_super')) {
+	if (parent && !newclass.prototype.hasOwnProperty('_super')) {
 		newclass.prototype._super = subclass.prototype;
 	}
 	
